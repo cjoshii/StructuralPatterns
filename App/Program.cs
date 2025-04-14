@@ -1,6 +1,7 @@
 ﻿using Adapter;
 using Bridge;
 using Composite;
+using Decorator;
 
 Console.WriteLine("Adapter Pattern Example");
 Console.WriteLine("=====================================");
@@ -59,4 +60,74 @@ root.Add(file4);
 root.Add(file5);
 
 root.ShowInfo();
+Console.WriteLine("=====================================");
+
+Console.WriteLine("Decorator Pattern Example");
+Console.WriteLine("=====================================");
+var message = "Hello, this is a test message!";
+
+INotifier notifier = new EmailNotifier();
+
+Console.WriteLine("Do you want to also send a push notification? (y/n)");
+var input = Console.ReadLine();
+
+if (input?.ToLower() == "y")
+{
+    notifier = new PushDecorator(notifier);
+}
+
+Console.WriteLine("Do you want to also send an SMS notification? (y/n)");
+input = Console.ReadLine();
+if (input?.ToLower() == "y")
+{
+    notifier = new SMSDecorator(notifier);
+}
+
+notifier.Notify(message);
+
+
+//Let's test the coffee shop example
+Console.WriteLine("Welcome to the Coffee Shop!");
+
+ICoffee coffee = new BlackCoffe();
+
+Console.WriteLine($"Your order: {coffee.GetDescription()} - Cost: {coffee.GetCost()}$");
+
+Console.WriteLine("Do you want to add milk? (y/n)");
+input = Console.ReadLine();
+
+if (input?.ToLower() == "y")
+{
+    coffee = new MilkDecorator(coffee);
+}
+Console.WriteLine($"Your order: {coffee.GetDescription()} - Cost: {coffee.GetCost()}$");
+
+Console.WriteLine("Do you want to add sugar? (y/n)");
+input = Console.ReadLine();
+
+if (input?.ToLower() == "y")
+{
+    coffee = new SugarDecorator(coffee);
+}
+Console.WriteLine($"Your order: {coffee.GetDescription()} - Cost: {coffee.GetCost()}$");
+
+Console.WriteLine("Do you want to add caramel? (y/n)");
+input = Console.ReadLine();
+
+if (input?.ToLower() == "y")
+{
+    coffee = new CaramelDecorator(coffee);
+}
+Console.WriteLine($"Your order: {coffee.GetDescription()} - Cost: {coffee.GetCost()}$");
+
+Console.WriteLine("Do you want to add extra shot? (y/n)");
+input = Console.ReadLine();
+
+if (input?.ToLower() == "y")
+{
+    coffee = new ExtraShotDecorator(coffee);
+}
+Console.WriteLine($"Your order: {coffee.GetDescription()} - Cost: {coffee.GetCost()}$");
+
+Console.WriteLine("Thank you for your order! Enjoy your coffee!");
 Console.WriteLine("=====================================");
