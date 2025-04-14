@@ -1,5 +1,6 @@
 ﻿using Adapter;
 using Bridge;
+using Composite;
 
 Console.WriteLine("Adapter Pattern Example");
 Console.WriteLine("=====================================");
@@ -36,4 +37,26 @@ advancedRemote.SetChannel(5);
 advancedRemote.SetVolume(10);
 advancedRemote.TurnOff();
 
+Console.WriteLine("=====================================");
+
+Console.WriteLine("Composite Pattern Example");
+Console.WriteLine("=====================================");
+var file1 = new Composite.File("file1-level2.txt");
+var file2 = new Composite.File("file2-level2.txt");
+var file3 = new Composite.File("file3-level2.txt");
+var directory1 = new Composite.Directory("directory-level1.txt");
+
+directory1.Add(file1);
+directory1.Add(file2);
+directory1.Add(file3);
+
+var file4 = new Composite.File("file1-level1.txt");
+var file5 = new Composite.File("file2-level1.txt");
+
+var root = new Composite.Directory("Root");
+root.Add(directory1);
+root.Add(file4);
+root.Add(file5);
+
+root.ShowInfo();
 Console.WriteLine("=====================================");
